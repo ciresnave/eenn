@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EENN Kernel Artifact Manifest",
+  "type": "object",
+  "required": [
+    "fingerprint_version",
+    "ops",
+    "dtype",
+    "artifact_kind",
+    "composer_version"
+  ],
+  "properties": {
+    "fingerprint_version": {
+      "type": "integer"
+    },
+    "ops": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "impl"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "impl": {
+            "type": "string"
+          },
+          "params": {
+            "type": [
+              "object",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "shapes": {
+      "type": [
+        "object",
+        "null"
+      ]
+    },
+    "shape_class": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "dtype": {
+      "type": "string"
+    },
+    "device_features": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "composer_version": {
+      "type": "string"
+    },
+    "toolchain": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "artifact_kind": {
+      "type": "string",
+      "enum": [
+        "generic",
+        "static"
+      ]
+    },
+    "compile_tier": {
+      "type": "string",
+      "enum": [
+        "quick",
+        "tier1",
+        "tier2"
+      ],
+      "default": "quick"
+    },
+    "compile_time_ms": {
+      "type": [
+        "number",
+        "null"
+      ]
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "use_count": {
+          "type": "integer"
+        },
+        "last_used_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "avg_runtime_ms": {
+          "type": "number"
+        }
+      }
+    },
+    "signed_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "signature": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "promoted_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,103 @@
+[package]
+name = "eenn"
+version = "0.1.0"
+edition = "2024"
+authors = ["Eric Evans <ciresnave@gmail.com>"]
+description = "A neural network library in Rust"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/ciresnave/eenn.git"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+bincode = "1.3"
+rand = "0.8"
+anyhow = "1.0"
+ndarray = "0.15"
+once_cell = "1.20"
+serde_json = "1.0"
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.21"
+ed25519-dalek = { version = "1.0", features = ["std"] }
+criterion = { version = "0.5", default-features = false, features = ["async"] }
+wide = "0.7"
+
+# Win32 API bindings used by the programmatic benchmark runner to set process affinity
+# (Removed platform-specific affinity deps to keep the runner portable.)
+
+[dependencies.rkyv]
+git = "https://github.com/rkyv/rkyv.git"
+rev = "6b04386f5d0bfd45658415f5e239e52783dd5117"
+optional = true
+features = ["std", "bytecheck"]
+
+[dependencies.rkyv_derive]
+git = "https://github.com/rkyv/rkyv.git"
+rev = "6b04386f5d0bfd45658415f5e239e52783dd5117"
+optional = true
+
+[features]
+# Enable tokio by default so examples that rely on the async worker build in test runs.
+default = ["tokio"]
+# Feature gate that enables the rkyv crates when requested.
+# Enabling `--features rkyv` will pull in both `rkyv` and the proc-macro
+# crate `rkyv_derive` which provides the derive macros.
+# Include both crate names and `dep:`-prefixed entries so enabling the feature
+# pulls in the optional dependencies correctly across cargo versions.
+# Use the `dep:`-prefixed optional dependency references required by Cargo for
+# optional dependencies that don't expose a feature of the same name.
+rkyv = ["dep:rkyv", "dep:rkyv_derive"]
+
+# Unsafe unchecked fast-path for rkyv: skips validation (use only for trusted input)
+rkyv_unchecked = []
+
+gpu = [
+  "dep:wgpu",
+  "dep:pollster",
+  "dep:bytemuck",
+  "dep:futures-executor",
+  "dep:futures-intrusive",
+]
+
+# Optional async runtime used for non-blocking map_async integration
+tokio = ["dep:tokio"]
+
+# Optional integration with system-analysis for capability scoring
+system_analysis = []
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["async"] }
+jsonschema = "0.16"
+tempfile = "3.5"
+
+[dependencies.wgpu]
+version = "0.16"
+optional = true
+features = ["spirv"]
+[dependencies.bytemuck]
+version = "1.14"
+optional = true
+[dependencies.futures-executor]
+version = "0.3"
+optional = true
+[dependencies.futures-intrusive]
+version = "0.4"
+optional = true
+
+[dependencies.pollster]
+version = "0.3"
+optional = true
+[dependencies.tokio]
+version = "1.37"
+optional = true
+features = ["rt", "rt-multi-thread", "macros", "time"]
+[dependencies.system-analysis]
+version = "0.2"
+features = ["gpu-detection"]
+
+[workspace]
+members = [
+  "crates/shaders_front",
+  "crates/shaders_common",
+  "crates/shaders_gpu",
+]

@@ -1,0 +1,19 @@
+[package]
+name = "shaders_gpu"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+# This crate will contain rust-gpu shaders. For now it's a scaffold; when
+# enabling actual rust-gpu builds you'll need to add `rust-gpu`-specific toolchain
+# entries and a build script using `spirv-builder` or `rustc_codegen_spirv`.
+
+shaders_front = { path = "../shaders_front" }
+shaders_common = { path = "../shaders_common" }
+spirv-std = "0.3"
+
+[build-dependencies]
+spirv-builder = "0.9"

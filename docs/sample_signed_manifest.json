@@ -1,0 +1,44 @@
+{
+  "fingerprint_version": 1,
+  "ops": [
+    {
+      "name": "relu",
+      "impl": "v1"
+    },
+    {
+      "name": "scale",
+      "impl": "v2",
+      "params": {
+        "w": 0.5
+      }
+    }
+  ],
+  "shapes": {
+    "in0": [
+      1,
+      64
+    ],
+    "out0": [
+      1,
+      64
+    ]
+  },
+  "dtype": "f32",
+  "device_features": [
+    "float32",
+    "workgroup_size_256"
+  ],
+  "composer_version": "wgsl-composer-0.1",
+  "toolchain": "rustc-1.70",
+  "artifact_kind": "static",
+  "compile_tier": "tier1",
+  "compile_time_ms": 123.4,
+  "metrics": {
+    "use_count": 42,
+    "last_used_at": "2025-09-10T12:34:56Z",
+    "avg_runtime_ms": 3.2
+  },
+  "signed_by": "build-server-1",
+  "signature": "BASE64(ed25519_signature_here)",
+  "promoted_at": "2025-09-10T12:34:56Z"
+}
